@@ -1,3 +1,24 @@
+# Project-GitHub-Demo
+
+ Client-Side ->  Ract, Redux, MaterialUI
+
+
+## Initial Project Task
+
+1. Your application must be written in React
+2. You must use functional components and hooks
+3. It must use the GitHub REST APIs
+4. It must have two views:
+5. List view
+6. Detail view
+7. Please include a README explaining how to run your app
+
+
+## Developer Notes
+ 
+ This project makes an api call on load to the github api to retreave information regarding a list of contributers. When a user click on the contributor the contributers information will be desplayed in two cards on holds the data the other the image. 
+
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
