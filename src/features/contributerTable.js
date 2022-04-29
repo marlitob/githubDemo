@@ -9,15 +9,14 @@ import Card from "@mui/material/Card";
 import {CardMedia} from "@mui/material";
 
 
-export default function ContributerTable({setSelectedUser}) {
+const  ContributorTable = ({setSelectedUser}) => {
     const {contributors} = useSelector((state) => state.counter);
 
     return (
         <React.Fragment>
-            {/*<Title>Recent Orders</Title>*/}
-            <Table size="small">
+            <Table style={{cursor: "pointer"}} size="small">
                 <TableHead>
-                    <TableRow>
+                    <TableRow >
                         <TableCell>Avatar</TableCell>
                         <TableCell>Username</TableCell>
                         <TableCell>Number of Contributions</TableCell>
@@ -26,7 +25,7 @@ export default function ContributerTable({setSelectedUser}) {
                 </TableHead>
                 <TableBody>
                     {contributors.map((c) => (
-                        <TableRow onClick={() => setSelectedUser(c.id)} key={c.id}>
+                        <TableRow hover onClick={() => setSelectedUser(c.id)} key={c.id}>
                             <TableCell>
                                 <Card sx={{ maxWidth: 50 }}>
                                     <CardMedia
@@ -48,3 +47,5 @@ export default function ContributerTable({setSelectedUser}) {
         </React.Fragment>
     );
 }
+
+export default  ContributorTable

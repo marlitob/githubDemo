@@ -15,6 +15,23 @@ class RepoApiServices {
                     resolve(res);
                 });
         });
+
+    getContributorDetails = (username) =>
+        new Promise((resolve, reject) => {
+            fetch(`https://api.github.com/users/${username}`, {
+                method: "get",
+                mode: "cors", // no-cors, *cors, same-origin
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(async (res) => {
+                    return res.json()
+                })
+                .then((res) => {
+                    resolve(res);
+                });
+        });
 }
 
 const repoApiServices = new RepoApiServices();

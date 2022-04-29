@@ -5,23 +5,36 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {useSelector} from "react-redux";
+import {Fade} from "@mui/material";
 
 
 export default function IDCard({selectedUser}) {
+    const {contributorDetails} = useSelector((state) => state.counter);
+
     const card = selectedUser? selectedUser.map(u =>
             <React.Fragment key={u.id}>
                 <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Username
+                    <Typography align={"justify"} variant={"subtitle2"}   color="text.secondary" >
+                        Username: {u.login}
                     </Typography>
-                    <Typography variant="h5" component="div">
-                        {u.login}
+                    <Typography align={"justify"}  color="text.secondary">
+                        Location: {contributorDetails.location === null ? "Location Not Available" : contributorDetails.location }
                     </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Number of Contributions
+                    <Typography align={"justify"}  color="text.secondary">
+                        Number of Contributions: {u.contributions}
                     </Typography>
-                    <Typography variant="body2">
-                        {u.contributions}
+                    <Typography align={"justify"}  color="text.secondary">
+                        Followers: {contributorDetails.followers}
+                    </Typography>
+                    <Typography  align={"justify"}  color="text.secondary">
+                        Following: {contributorDetails.following}
+                    </Typography>
+                    <Typography  color="text.secondary">
+                        Bio:
+                    </Typography>
+                    <Typography style={{fontSize: "12px"}}   variant="caption">
+                        {contributorDetails.bio === null ? "Bio Not Available" : contributorDetails.bio}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -31,8 +44,10 @@ export default function IDCard({selectedUser}) {
        ): null
 
     return (
-        <Box sx={{ minWidth: 275 }}>
-            <Card variant="none">{card}</Card>
+        <Box   sx={{ minWidth: 275 }}>
+            <Fade in={!!contributorDetails.login} timeout={{ appear: 900, enter: 1800, exit: 1200 }}>
+            <Card raised variant="none">{card}</Card>
+            </Fade>
         </Box>
     );
 }

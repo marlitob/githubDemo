@@ -11,19 +11,17 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import {useDispatch, useSelector} from "react-redux";
 import {repoActions} from "../actions/repoActions"
+import {getContributorDetailsActions} from "../actions/repoActions"
 import ContributerTable from "../features/contributerTable";
 import {useEffect, useState} from "react";
 import IDCard from "../features/idCard";
 import AvatarDisplay from "../features/avatarDisplay";
 
-
-
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://github.com/">
+      <Link color="inherit" href="https://github.com/facebook/react">
         GitHub
       </Link>{' '}
       {new Date().getFullYear()}
@@ -59,21 +57,23 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const {contributors} = useSelector((state) => state.counter);
   const [selectedUser, setSelectedUser] = useState(0);
-  const [open, setOpen] = React.useState(true);
+
   const dispatch = useDispatch();
 
+
     useEffect(() => {
-        return () => {
-            return dispatch(repoActions)
-        };
-    }, []);
+             dispatch(repoActions())
+    }, [dispatch]);
+
   const setSelectedUserObj =(id) =>{
-    setSelectedUser(contributors.filter(c => c.id === id))
+   const userObj = contributors.filter(c => c.id === id)
+      setSelectedUser(userObj)
+      dispatch(getContributorDetailsActions(userObj[0].login))
   }
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }} >
-        <AppBar open={open } >
+        <AppBar  >
           <Toolbar
           >
             <Typography
@@ -117,7 +117,7 @@ function DashboardContent() {
                   <AvatarDisplay avatarImage={selectedUser ?  selectedUser[0].avatar_url : null } />
                 </Paper>
               </Grid>
-              <Grid style={{display: selectedUser? "block" : "none" }} item xs={12} md={4} lg={3} item xs={12} md={8} lg={9}>
+              <Grid style={{display: selectedUser? "block" : "none" }} item xs={12} md={4}  lg={9}>
                 <Paper
                     sx={{
                       p: 2,
@@ -127,6 +127,7 @@ function DashboardContent() {
                     }}
                 >
                   <IDCard selectedUser={selectedUser ? selectedUser :null}/>
+
                 </Paper>
               </Grid>
               <Grid item xs={12}>
